@@ -1,0 +1,1949 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPetBnB</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/home-sections.css">
+</head>
+
+<body class="home-page">
+    <div class="site-nav-wrapper">
+        <nav class="site-nav">
+    <div class="site-nav__inner container">
+        <div class="site-nav__brand">
+            <a href="index.html" class="site-nav__logo" aria-label="Petbnb Home">
+                <img src="assets/images/Logo.png" alt="Petbnb logo">
+            </a>
+            <button class="site-nav__toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <ul class="site-nav__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li class="site-nav__lang">
+<div class="lang-switcher">
+    <div class="container lang-switcher__inner">
+        <div class="lang-menu" aria-label="Language selection">
+            <button class="lang-toggle" id="lang-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+                <span class="lang-toggle__label">Translate</span>
+                <span aria-hidden="true" class="lang-toggle__caret">&#9662;</span>
+            </button>
+            <div class="lang-menu__list" id="lang-menu-list" role="menu" aria-label="Select language"></div>
+        </div>
+    </div>
+</div>
+<div id="google_translate_element" class="sr-only"></div>
+<script>
+    (function () {
+        const languages = [
+            { code: 'en', label: 'English' },
+            { code: 'es', label: 'Spanish' },
+            { code: 'fr', label: 'French' },
+            { code: 'de', label: 'German' },
+            { code: 'hi', label: 'Hindi' },
+            { code: 'ar', label: 'Arabic' },
+            { code: 'pt', label: 'Portuguese' },
+            { code: 'ru', label: 'Russian' },
+            { code: 'ja', label: 'Japanese' },
+            { code: 'ko', label: 'Korean' },
+            { code: 'it', label: 'Italian' },
+            { code: 'nl', label: 'Dutch' },
+            { code: 'tr', label: 'Turkish' },
+            { code: 'bn', label: 'Bengali' },
+            { code: 'ur', label: 'Urdu' },
+            { code: 'fa', label: 'Persian' },
+            { code: 'id', label: 'Indonesian' },
+            { code: 'ms', label: 'Malay' },
+            { code: 'vi', label: 'Vietnamese' },
+            { code: 'th', label: 'Thai' },
+            { code: 'pl', label: 'Polish' },
+            { code: 'uk', label: 'Ukrainian' },
+            { code: 'sv', label: 'Swedish' },
+            { code: 'zh-CN', label: 'Chinese (Simplified)' },
+            { code: 'zh-TW', label: 'Chinese (Traditional)' }
+        ];
+        const languageNames = Object.fromEntries(languages.map(item => [item.code, item.label]));
+
+        window.googleTranslateElementInit = function () {
+            if (window.google && google.translate) {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: languages.map(item => item.code).join(','),
+                    autoDisplay: false
+                }, 'google_translate_element');
+            }
+        };
+
+        const toggle = document.getElementById('lang-toggle');
+        const label = toggle ? toggle.querySelector('.lang-toggle__label') : null;
+        const menu = document.getElementById('lang-menu-list');
+
+        if (menu) {
+            const fragment = document.createDocumentFragment();
+            languages.forEach(item => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'lang-option';
+                button.dataset.lang = item.code;
+                button.setAttribute('role', 'menuitem');
+                button.textContent = item.label;
+                fragment.appendChild(button);
+            });
+            menu.appendChild(fragment);
+        }
+
+        const options = menu ? menu.querySelectorAll('[data-lang]') : [];
+
+        const getCurrentLang = () => {
+            const match = document.cookie.match(/(?:^|;)\s*googtrans=([^;]+)/);
+            if (!match) return 'en';
+            const parts = decodeURIComponent(match[1]).split('/');
+            return parts[2] || 'en';
+        };
+
+        const setActive = (lang) => {
+            options.forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('is-active');
+                } else {
+                    btn.classList.remove('is-active');
+                }
+            });
+            if (label) {
+                label.textContent = languageNames[lang] || 'Translate';
+            }
+        };
+
+        const setLanguage = (lang) => {
+            const value = lang === 'en' ? '/auto/en' : `/auto/${lang}`;
+            document.cookie = `googtrans=${value};path=/`;
+            document.cookie = `googtrans=${value};domain=${location.hostname};path=/`;
+            location.reload();
+        };
+
+        const toggleMenu = () => {
+            if (!menu || !toggle) return;
+            const isOpen = menu.classList.contains('is-open');
+            menu.classList.toggle('is-open');
+            toggle.setAttribute('aria-expanded', String(!isOpen));
+        };
+
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+            });
+        }
+
+        options.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const lang = btn.dataset.lang;
+                setActive(lang);
+                menu.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                setLanguage(lang);
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!menu || !toggle) return;
+            if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+                menu.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        const hideTranslateBanner = () => {
+            const iframe = document.querySelector('iframe.goog-te-banner-frame');
+            const banner = document.querySelector('.goog-te-banner-frame');
+            if (iframe && iframe.parentNode) iframe.parentNode.removeChild(iframe);
+            if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
+            const skip = document.querySelector('.skiptranslate');
+            if (skip && skip.parentNode && skip.tagName === 'BODY') skip.parentNode.removeChild(skip);
+            if (document.documentElement.style.height) {
+                document.documentElement.style.removeProperty('height');
+            }
+        };
+
+        window.addEventListener('load', () => {
+            hideTranslateBanner();
+            setActive(getCurrentLang());
+            let attempts = 0;
+            const interval = setInterval(() => {
+                hideTranslateBanner();
+                attempts += 1;
+                if (attempts > 20) clearInterval(interval);
+            }, 400);
+
+            const observer = new MutationObserver(() => hideTranslateBanner());
+            observer.observe(document.documentElement, { childList: true, subtree: true });
+        });
+    })();
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+            </li>
+        </ul>
+    </div>
+</nav>
+<script>
+    (function() {
+        const toggle = document.querySelector('.site-nav__toggle');
+        const nav = document.querySelector('.site-nav');
+        if (!toggle || !nav) return;
+
+        toggle.addEventListener('click', () => {
+            const expanded = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', String(!expanded));
+            nav.classList.toggle('is-open');
+            document.body.classList.toggle('nav-open', !expanded);
+        });
+    })();
+</script>
+
+    </div>
+
+    <section class="hero-section">
+        <div class="img-wrapper" aria-hidden="true">
+            <div class="hero-video-slot">
+                <video class="hero-video" autoplay muted loop playsinline poster="assets/images/default-banner.svg">
+                    <source src="assets/video/Human_Hand_Meets_Dog_Paw.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="info-container">
+            <div class="container">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-lg-6 col-xl-7 mb-4 mb-lg-0">
+                        <div class="info py-5" data-aos="fade-right" data-aos-duration="900">
+                            <p class="hero-kicker mb-2">Neighborhood care</p>
+                            <h1 class="banner-head-title mb-2">Your pet's favorite home <br>
+                                when you're not home</h1>
+                            <h2 class="banner-subtitle fw-normal mb-4">Book trusted pet sitters, walkers and trainers</h2>
+                            <div class="nav-cta-wrap ms-lg-0" data-aos="fade-up" data-aos-delay="150">
+                                <a class="btn btn-primary-color rounded-pill fw-semibold px-3 py-2"
+                                    href="https://forms.gle/5aNmE97MRYUBZzqJ6">Register</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-xl-5 d-desktop-card" data-aos="fade-left" data-aos-duration="900">
+                        <form id="unifiedSearchFormDesktop" class="hero-form-card" novalidate>
+                            <div class="seg-tabs" data-tabs>
+                                <button type="button" class="btn active" data-role-btn value="parent">Pet Parent</button>
+                                <button type="button" class="btn" data-role-btn value="host">Pet Host</button>
+                                <button type="button" class="btn" data-role-btn value="provider">Services</button>
+                            </div>
+
+                            <div class="role-pane active" data-pane="parent">
+                                <div class="accordion faq-accordion mb-3" id="ppAccordion">
+                                    <div class="accordion-item mb-2">
+                                        <h2 class="accordion-header" id="ppPersonalHead">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#ppPersonal" aria-expanded="true" aria-controls="ppPersonal">
+                                                Personal details
+                                            </button>
+                                        </h2>
+                                        <div id="ppPersonal" class="accordion-collapse collapse show" aria-labelledby="ppPersonalHead"
+                                            data-bs-parent="#ppAccordion">
+                                            <div class="accordion-body">
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="text" class="form-control" data-role="pp_name" placeholder="Your full name"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="email" class="form-control" data-role="pp_email" placeholder="Email" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="text" class="form-control" data-role="location" placeholder="Locality"
+                                                            required>
+                                                        <div class="invalid-feedback">Enter a location.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="ppProHead">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#ppPro" aria-expanded="false" aria-controls="ppPro">
+                                                Pet and preferences
+                                            </button>
+                                        </h2>
+                                        <div id="ppPro" class="accordion-collapse collapse" aria-labelledby="ppProHead"
+                                            data-bs-parent="#ppAccordion">
+                                            <div class="accordion-body">
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <select class="form-select" data-role="pets" required>
+                                                            <option value="" selected disabled>Pet No.</option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5+</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <select class="form-select" data-role="pp_type" required>
+                                                            <option value="" selected disabled>Pet type</option>
+                                                            <option>Dog</option>
+                                                            <option>Cat</option>
+                                                            <option>Other</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="text" class="form-control" data-role="pp_breed" placeholder="Breed">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <select class="form-select" data-role="service" required>
+                                                            <option value="" selected disabled>Choose a service</option>
+                                                            <option value="boarding">Boarding &bull; in the sitter's home</option>
+                                                            <option value="walking">Dog Walking</option>
+                                                            <option value="training">Training</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Please choose a service.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3" data-role="dateRange">
+                                                    <label class="form-label fw-semibold">Which dates do you need?</label>
+                                                    <div class="row g-2">
+                                                        <div class="col-6"><input type="date" class="form-control" data-role="from"></div>
+                                                        <div class="col-6"><input type="date" class="form-control" data-role="to"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row g-2 mb-3 d-none" data-role="timeBlock">
+                                                    <div class="col-6">
+                                                        <label class="form-label fw-semibold">Date</label>
+                                                        <input type="date" class="form-control" data-role="walkDate">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label class="form-label fw-semibold">Time</label>
+                                                        <input type="time" class="form-control" data-role="walkTime">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="parentSubmitBtn" class="btn btn-primary-color w-100 py-2 fw-bold" type="submit">Submit</button>
+                            </div>
+                            <div class="role-pane" data-pane="host">
+                                <div class="accordion faq-accordion mb-3" id="hostAccordion">
+                                    <div class="accordion-item mb-2">
+                                        <h2 class="accordion-header" id="hostPersonalHead">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#hostPersonal" aria-expanded="true" aria-controls="hostPersonal">
+                                                Personal details
+                                            </button>
+                                        </h2>
+                                        <div id="hostPersonal" class="accordion-collapse collapse show" aria-labelledby="hostPersonalHead"
+                                            data-bs-parent="#hostAccordion">
+                                            <div class="accordion-body">
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="text" class="form-control" data-role="host_name" placeholder="Your full name"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="email" class="form-control" data-role="host_email" placeholder="Email"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="text" class="form-control" data-role="location" placeholder="Locality"
+                                                            oninput="this.nextElementSibling.value=this.value">
+                                                        <input type="hidden" data-role="host_locality">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="hostProfileHead">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#hostProfile" aria-expanded="false" aria-controls="hostProfile">
+                                                Hosting profile and offerings
+                                            </button>
+                                        </h2>
+                                        <div id="hostProfile" class="accordion-collapse collapse" aria-labelledby="hostProfileHead"
+                                            data-bs-parent="#hostAccordion">
+                                            <div class="accordion-body">
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <select class="form-select" data-role="host_experience" required>
+                                                            <option value="" selected disabled>Hosting Experience</option>
+                                                            <option>Beginner</option>
+                                                            <option>1-2 years</option>
+                                                            <option>3+ years</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="number" class="form-control" data-role="host_rate"
+                                                            placeholder="Price per day/night" min="0" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <select class="form-select" data-role="service" required>
+                                                        <option value="" selected disabled>Choose a service</option>
+                                                        <option value="boarding">Boarding</option>
+                                                        <option value="daycare">Day Care</option>
+                                                        <option value="grooming">Grooming</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">Please choose a service.</div>
+                                                </div>
+
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label fw-semibold">Home Photos Upload</label>
+                                                        <input type="file" class="form-control" data-role="host_photos" multiple accept="image/*">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label fw-semibold">Pet Types You Host</label>
+                                                        <select class="form-select" data-role="host_pet_types" required>
+                                                            <option value="" selected disabled>Pet Types You Host</option>
+                                                            <option>Dogs</option>
+                                                            <option>Cats</option>
+                                                            <option>Both</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="hostSubmitBtn" class="btn btn-primary-color w-100 py-2 fw-bold" type="submit">Submit</button>
+                            </div>
+
+                            <div class="role-pane" data-pane="provider">
+                                <div class="accordion faq-accordion mb-3" id="spAccordion">
+                                    <div class="accordion-item mb-2">
+                                        <h2 class="accordion-header" id="spPersonalHead">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#spPersonal" aria-expanded="true" aria-controls="spPersonal">
+                                                Personal details
+                                            </button>
+                                        </h2>
+                                        <div id="spPersonal" class="accordion-collapse collapse show" aria-labelledby="spPersonalHead"
+                                            data-bs-parent="#spAccordion">
+                                            <div class="accordion-body">
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="text" class="form-control" data-role="sp_name" placeholder="Your full name"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="email" class="form-control" data-role="sp_email" placeholder="Email" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="text" class="form-control" data-role="location"
+                                                            placeholder="e.g., Borivali West" required>
+                                                        <div class="invalid-feedback">Locality</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="spProHead">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#spPro" aria-expanded="false" aria-controls="spPro">
+                                                Profile and offerings
+                                            </button>
+                                        </h2>
+                                        <div id="spPro" class="accordion-collapse collapse" aria-labelledby="spProHead"
+                                            data-bs-parent="#spAccordion">
+                                            <div class="accordion-body">
+                                                <div class="mb-3">
+                                                    <select class="form-select" data-role="service" required>
+                                                        <option value="" selected disabled>Choose a service</option>
+                                                        <option value="walking">Dog Walking</option>
+                                                        <option value="training">Training</option>
+                                                        <option value="grooming">Grooming</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">Please choose a service.</div>
+                                                </div>
+
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <select class="form-select" data-role="sp_experience" required>
+                                                            <option value="" selected disabled>Experience Level</option>
+                                                            <option>Beginner</option>
+                                                            <option>1-2 years</option>
+                                                            <option>3+ years</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="number" class="form-control" data-role="sp_radius"
+                                                            placeholder="Service Radius (km)" min="1" max="25">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <select class="form-select" data-role="sp_availability">
+                                                            <option value="" selected disabled>Availability Slots</option>
+                                                            <option>Morning</option>
+                                                            <option>Evening</option>
+                                                            <option>Flexible</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <input type="number" class="form-control" data-role="sp_rate"
+                                                            placeholder="Rate per Session (&#8377;)" min="0" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row g-2">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label fw-semibold">Certification (if any)</label>
+                                                        <input type="file" class="form-control" data-role="sp_cert_file"
+                                                            accept=".pdf,.jpg,.png,.jpeg">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label fw-semibold">Profile Photo &amp; ID Proof</label>
+                                                        <input type="file" class="form-control" data-role="sp_id_proof" multiple
+                                                            accept="image/*,.pdf">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <textarea class="form-control" rows="2" data-role="sp_reviews"
+                                                        placeholder="Reviews / References"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="selectedRole" value="parent" data-role="selectedRole">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pet-selector-container pb-3 d-none">
+            <div class="services-selection-section py-4">
+                <div class="container">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="selection-section p-3 bg-white shadow rounded-4">
+                                <h3 class="mb-3 text-primary services-selection-section-title">Boarding</h3>
+
+                                <div class="mb-3">
+                                    <label for="breed" class="form-label">Breed Name</label>
+                                    <select id="breed" class="form-select select2 w-100" multiple>
+                                        <option value="">Select Breed</option>
+                                        <option>Labrador Retriever</option>
+                                        <option>German Shepherd</option>
+                                        <option>Golden Retriever</option>
+                                        <option>Pug</option>
+                                        <option>Beagle</option>
+                                        <option>Bulldog</option>
+                                        <option>Dachshund</option>
+                                        <option>Rottweiler</option>
+                                        <option>Shih Tzu</option>
+                                        <option>Siberian Husky</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Boarding Location</label>
+                                    <input type="text" class="form-control progressive-trigger" id="location"
+                                        placeholder="Enter area or city">
+                                </div>
+
+                                <div class="progressive-extra">
+                                    <div class="row g-2 mb-3">
+                                        <div class="col">
+                                            <label for="fromDate" class="form-label">From Date</label>
+                                            <input type="date" class="form-control" id="fromDate">
+                                        </div>
+                                        <div class="col">
+                                            <label for="toDate" class="form-label">To Date</label>
+                                            <input type="date" class="form-control" id="toDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-2 mb-3">
+                                        <div class="col">
+                                            <label for="boardingInTime" class="form-label">Drop-Off</label>
+                                            <select id="boardingInTime" class="form-select">
+                                                <option value="">Check-in time?</option>
+                                                <option>07:00 AM</option>
+                                                <option>08:00 AM</option>
+                                                <option>09:00 AM</option>
+                                                <option>10:00 AM</option>
+                                                <option>11:00 AM</option>
+                                                <option>12:00 AM</option>
+                                                <option>01:00 PM</option>
+                                                <option>02:00 PM</option>
+                                                <option>03:00 PM</option>
+                                                <option>04:00 PM</option>
+                                                <option>05:00 PM</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label for="boardingOutTime" class="form-label">Pick-Up</label>
+                                            <select id="boardingOutTime" class="form-select">
+                                                <option value="">Check-out time?</option>
+                                                <option>07:00 AM</option>
+                                                <option>08:00 AM</option>
+                                                <option>09:00 AM</option>
+                                                <option>10:00 AM</option>
+                                                <option>11:00 AM</option>
+                                                <option>12:00 AM</option>
+                                                <option>01:00 PM</option>
+                                                <option>02:00 PM</option>
+                                                <option>03:00 PM</option>
+                                                <option>04:00 PM</option>
+                                                <option>05:00 PM</option>
+                                                <option>06:00 PM</option>
+                                                <option>07:00 PM</option>
+                                                <option>08:00 PM</option>
+                                                <option>09:00 PM</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="boardingAge" class="form-label">Dog age</label>
+                                        <select id="boardingAge" class="form-select">
+                                            <option value="any">Any</option>
+                                            <option value="puppy">Puppy (&lt; 1 year)</option>
+                                            <option value="adult">Adult (1-7 years)</option>
+                                            <option value="senior">Senior (8+ years)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Dogs</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <button type="button" class="btn btn-light border px-3" onclick="decrementBoarding()">-</button>
+                                            <span id="boardingDogCount" class="fw-semibold">0</span>
+                                            <button type="button" class="incre-decre-btns px-3" onclick="incrementBoarding()">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary-color" onclick="goToSearchSitters()">Search Sitters</button>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="resetSection(this)">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="selection-section p-3 bg-white shadow rounded-4 h-100">
+                                <h3 class="mb-3 text-success services-selection-section-title">Dog Walking</h3>
+
+                                <div class="mb-3">
+                                    <label for="breed-walking" class="form-label">Breed Name</label>
+                                    <select id="breed-walking" class="form-select select2">
+                                        <option value="">Select Breed</option>
+                                        <option>Labrador Retriever</option>
+                                        <option>German Shepherd</option>
+                                        <option>Golden Retriever</option>
+                                        <option>Pug</option>
+                                        <option>Beagle</option>
+                                        <option>Bulldog</option>
+                                        <option>Dachshund</option>
+                                        <option>Rottweiler</option>
+                                        <option>Shih Tzu</option>
+                                        <option>Siberian Husky</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="location-walking" class="form-label">Preferred Walking Area</label>
+                                    <input type="text" class="form-control progressive-trigger" id="location-walking"
+                                        placeholder="Enter your location">
+                                </div>
+
+                                <div class="progressive-extra">
+                                    <div class="row g-2 mb-3">
+                                        <div class="col">
+                                            <label for="walkFromTime" class="form-label">Preferred Start Time</label>
+                                            <input type="time" class="form-control" id="walkFromTime">
+                                        </div>
+                                        <div class="col">
+                                            <label for="walkToTime" class="form-label">Preferred End Time</label>
+                                            <input type="time" class="form-control" id="walkToTime">
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-2 mb-3">
+                                        <div class="col">
+                                            <label for="walkFromDate" class="form-label">From Date</label>
+                                            <input type="date" class="form-control" id="walkFromDate">
+                                        </div>
+                                        <div class="col">
+                                            <label for="walkToDate" class="form-label">To Date</label>
+                                            <input type="date" class="form-control" id="walkToDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="walkDuration" class="form-label">Walk Duration</label>
+                                        <select class="form-select" id="walkDuration">
+                                            <option value="">Select duration</option>
+                                            <option>15 minutes</option>
+                                            <option>30 minutes</option>
+                                            <option>60 minutes</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">No. of Dogs</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <button type="button" class="btn btn-light border px-3" onclick="decrementWalking()">-</button>
+                                            <span id="walkingDogCount" class="fw-semibold">0</span>
+                                            <button type="button" class="px-3 incre-decre-btns" onclick="incrementWalking()">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary-color" onclick="goToSearchWalkers()">Search Walkers</button>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="resetSection(this)">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="selection-section p-3 bg-white shadow rounded-4 h-100">
+                                <h3 class="mb-3 text-warning services-selection-section-title">Training</h3>
+
+                                <div class="mb-3">
+                                    <label for="breed-training" class="form-label">Breed Name</label>
+                                    <select id="breed-training" class="form-select select2">
+                                        <option value="">Select Breed</option>
+                                        <option>Labrador Retriever</option>
+                                        <option>German Shepherd</option>
+                                        <option>Golden Retriever</option>
+                                        <option>Pug</option>
+                                        <option>Beagle</option>
+                                        <option>Bulldog</option>
+                                        <option>Dachshund</option>
+                                        <option>Rottweiler</option>
+                                        <option>Shih Tzu</option>
+                                        <option>Siberian Husky</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="dogAge" class="form-label">Dog's Age</label>
+                                    <input type="number" class="form-control progressive-trigger" id="dogAge"
+                                        placeholder="In months or years">
+                                </div>
+
+                                <div class="progressive-extra">
+                                    <div class="mb-3">
+                                        <label for="relationship" class="form-label">How long have you been with your dog?</label>
+                                        <input type="text" class="form-control" id="relationship" placeholder="e.g. 1 year, 3 months">
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button class="btn text-white btn-primary-color">Start Training</button>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="resetSection(this)">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container d-mobile-card" data-aos="fade-up" data-aos-duration="900">
+        <form id="unifiedSearchFormMobile" class="mobile-hero-form hero-form-card mt-3" novalidate>
+            <div class="role-toggle btn-group w-100" role="group" aria-label="Role toggle">
+                <input type="radio" class="btn-check" name="roleMob" id="roleMobParent" autocomplete="off" value="parent" checked>
+                <label class="btn btn-outline-secondary w-100" for="roleMobParent">Pet Parent</label>
+                <input type="radio" class="btn-check" name="roleMob" id="roleMobHost" autocomplete="off" value="host">
+                <label class="btn btn-outline-secondary w-100" for="roleMobHost">Pet Host</label>
+                <input type="radio" class="btn-check" name="roleMob" id="roleMobProvider" autocomplete="off" value="provider">
+                <label class="btn btn-outline-secondary w-100" for="roleMobProvider">Services</label>
+            </div>
+
+            <div class="role-pane active" data-pane="parent">
+                <div class="accordion faq-accordion mb-3" id="ppAccordionMob">
+                    <div class="accordion-item mb-2">
+                        <h2 class="accordion-header" id="ppPersonalHeadMob">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ppPersonalMob"
+                                aria-expanded="true" aria-controls="ppPersonalMob">
+                                Personal details
+                            </button>
+                        </h2>
+                        <div id="ppPersonalMob" class="accordion-collapse collapse show" aria-labelledby="ppPersonalHeadMob"
+                            data-bs-parent="#ppAccordionMob">
+                            <div class="accordion-body">
+                                <div class="row g-2">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <input type="text" class="form-control" data-role="pp_name" placeholder="Your full name" required>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <input type="email" class="form-control" data-role="pp_email" placeholder="Email" required>
+                                    </div>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <input type="text" class="form-control" data-role="location" placeholder="Locality" required>
+                                        <div class="invalid-feedback">Enter a location.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="ppProHeadMob">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#ppProMob" aria-expanded="false" aria-controls="ppProMob">
+                                Pet and preferences
+                            </button>
+                        </h2>
+                        <div id="ppProMob" class="accordion-collapse collapse" aria-labelledby="ppProHeadMob"
+                            data-bs-parent="#ppAccordionMob">
+                            <div class="accordion-body">
+                                <div class="row g-2">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <select class="form-select" data-role="pets" required>
+                                            <option value="" selected disabled>Pet No.</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5+</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <select class="form-select" data-role="pp_type" required>
+                                            <option value="" selected disabled>Pet type</option>
+                                            <option>Dog</option>
+                                            <option>Cat</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row g-2">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <input type="text" class="form-control" data-role="pp_breed" placeholder="Breed">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <select class="form-select" data-role="service" required>
+                                        <option value="" selected disabled>Choose a service</option>
+                                        <option value="boarding">Boarding &bull; in the sitter's home</option>
+                                        <option value="walking">Dog Walking</option>
+                                        <option value="training">Training</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please choose a service.</div>
+                                </div>
+
+                                <div class="mb-3" data-role="dateRange">
+                                    <label class="form-label fw-semibold">Which dates do you need?</label>
+                                    <div class="row g-2">
+                                        <div class="col-6"><input type="date" class="form-control" data-role="from"></div>
+                                        <div class="col-6"><input type="date" class="form-control" data-role="to"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-2 mb-3 d-none" data-role="timeBlock">
+                                    <div class="col-6">
+                                        <label class="form-label fw-semibold">Date</label>
+                                        <input type="date" class="form-control" data-role="walkDate">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label fw-semibold">Time</label>
+                                        <input type="time" class="form-control" data-role="walkTime">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="parentSubmitBtn" class="btn btn-primary-color w-100 py-2 fw-bold" type="submit">Submit</button>
+            </div>
+
+            <div class="role-pane" data-pane="host">
+                <div class="accordion faq-accordion mb-3" id="hostAccordionMob">
+                    <div class="accordion-item mb-2">
+                        <h2 class="accordion-header" id="hostPersonalHeadMob">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#hostPersonalMob"
+                                aria-expanded="true" aria-controls="hostPersonalMob">
+                                Personal details
+                            </button>
+                        </h2>
+                        <div id="hostPersonalMob" class="accordion-collapse collapse show" aria-labelledby="hostPersonalHeadMob"
+                            data-bs-parent="#hostAccordionMob">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" data-role="host_name" placeholder="Your full name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" data-role="host_email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" data-role="location" placeholder="Locality"
+                                        oninput="this.nextElementSibling.value=this.value">
+                                    <input type="hidden" data-role="host_locality">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="hostProfileHeadMob">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#hostProfileMob" aria-expanded="false" aria-controls="hostProfileMob">
+                                Hosting profile and offerings
+                            </button>
+                        </h2>
+                        <div id="hostProfileMob" class="accordion-collapse collapse" aria-labelledby="hostProfileHeadMob"
+                            data-bs-parent="#hostAccordionMob">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <select class="form-select" data-role="host_experience" required>
+                                        <option value="" selected disabled>Hosting experience</option>
+                                        <option>Beginner</option>
+                                        <option>1-2 years</option>
+                                        <option>3+ years</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select" data-role="host_pet_types" required>
+                                        <option value="" selected disabled>Pet Types You Host</option>
+                                        <option>Dogs</option>
+                                        <option>Cats</option>
+                                        <option>Both</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <select class="form-select" data-role="service" required>
+                                        <option value="" selected disabled>Choose a service</option>
+                                        <option value="boarding">Boarding</option>
+                                        <option value="daycare">Day Care</option>
+                                        <option value="grooming">Grooming</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please choose a service.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Home Photos Upload</label>
+                                    <input type="file" class="form-control" placeholder="Home Photos Upload" data-role="host_photos"
+                                        multiple accept="image/*">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="number" class="form-control" data-role="host_rate" placeholder="Price per day/night"
+                                        min="0" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="hostSubmitBtn" class="btn btn-primary-color w-100 py-2 fw-bold" type="submit">Submit</button>
+            </div>
+
+            <div class="role-pane" data-pane="provider">
+                <div class="accordion faq-accordion mb-3" id="spAccordionMob">
+                    <div class="accordion-item mb-2">
+                        <h2 class="accordion-header" id="spPersonalHeadMob">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#spPersonalMob"
+                                aria-expanded="true" aria-controls="spPersonalMob">
+                                Personal details
+                            </button>
+                        </h2>
+                        <div id="spPersonalMob" class="accordion-collapse collapse show" aria-labelledby="spPersonalHeadMob"
+                            data-bs-parent="#spAccordionMob">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" data-role="sp_name" placeholder="Your full name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" data-role="sp_email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" data-role="location" placeholder="Locality" required>
+                                    <div class="invalid-feedback">Enter a location.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="spProHeadMob">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#spProMob" aria-expanded="false" aria-controls="spProMob">
+                                Profile and offerings
+                            </button>
+                        </h2>
+                        <div id="spProMob" class="accordion-collapse collapse" aria-labelledby="spProHeadMob"
+                            data-bs-parent="#spAccordionMob">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <select class="form-select" data-role="service" required>
+                                        <option value="" selected disabled>Choose a service</option>
+                                        <option value="walking">Dog Walking</option>
+                                        <option value="training">Training</option>
+                                        <option value="grooming">Grooming</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please choose a service.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <select class="form-select" data-role="sp_experience" required>
+                                        <option value="" selected disabled>Experience level</option>
+                                        <option>Beginner</option>
+                                        <option>1-2 years</option>
+                                        <option>3+ years</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input type="number" class="form-control" data-role="sp_radius" placeholder="Service Radius (km)"
+                                        min="1" max="25">
+                                </div>
+
+                                <div class="mb-3">
+                                    <select class="form-select" data-role="sp_availability">
+                                        <option value="" selected disabled>Availability slot</option>
+                                        <option>Morning</option>
+                                        <option>Evening</option>
+                                        <option>Flexible</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input type="number" class="form-control" data-role="sp_rate" placeholder="Rate per Session (&#8377;)"
+                                        min="0" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Certification (if any)</label>
+                                    <input type="file" class="form-control" data-role="sp_cert_file" accept=".pdf,.jpg,.png,.jpeg"
+                                        placeholder="Certification (if any)">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Profile Photo &amp; ID Proof</label>
+                                    <input type="file" class="form-control" placeholder="Profile Photo &amp; ID Proof"
+                                        data-role="sp_id_proof" multiple accept="image/*,.pdf">
+                                </div>
+
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="2" data-role="sp_reviews"
+                                        placeholder="Reviews / References"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="providerSubmitBtn" class="btn btn-primary-color w-100 py-2 fw-bold" type="submit">Submit</button>
+            </div>
+
+            <input type="hidden" name="selectedRole" value="parent" data-role="selectedRole">
+        </form>
+    </div>
+
+    <section class="wwd-wrap">
+        <div class="wwd-hero">
+            <img src="assets/images/kutte-bc.png" alt="Happy pets with sitters" class="wwd-hero-img">
+            <div class="wwd-card-row">
+                <div class="container">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <article class="wwd-card" data-aos="fade-up" data-aos-duration="900">
+                                <h3 class="wwd-card-title">With Love &amp; Care</h3>
+                                <p class="wwd-card-subhead">Neighborhood sitters</p>
+                                <p class="wwd-card-text">PetBnB connects loving sitters with caring pet parents, right in the neighborhood.</p>
+                            </article>
+                        </div>
+                        <div class="col-md-4">
+                            <article class="wwd-card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+                                <h3 class="wwd-card-title">Trusted &amp; Verified</h3>
+                                <p class="wwd-card-subhead">Secure bookings</p>
+                                <p class="wwd-card-text">Verified profiles, transparent reviews, and secure bookings keep tails wagging.</p>
+                            </article>
+                        </div>
+                        <div class="col-md-4">
+                            <article class="wwd-card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">
+                                <h3 class="wwd-card-title">You bring the cuddles</h3>
+                                <p class="wwd-card-subhead">We handle the rest</p>
+                                <p class="wwd-card-text">We handle the match, the safety checks, and smooth bookings.</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="journey-section journey-problems" id="problems">
+        <div class="container">
+            <div class="journey-head" data-aos="fade-up" data-aos-duration="900">
+                <p class="journey-kicker">Problems Solved</p>
+                <h2 class="journey-title">Painful realities for urban pet parents</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <article class="journey-card" data-aos="fade-up" data-aos-duration="900">
+                        <div class="journey-card-image" style="background-image: url('assets/images/kennels-feel-jail.jpg')">
+                            <div class="journey-card-content">
+                                <div class="journey-card-top">
+                                    <span class="journey-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                            <rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor"
+                                                stroke-width="1.6" />
+                                            <path d="M8 5v14M12 5v14M16 5v14" fill="none" stroke="currentColor" stroke-width="1.4" />
+                                        </svg>
+                                    </span>
+                                    <h3 class="journey-card-title">Kennels feel like jails</h3>
+                                </div>
+                                <p class="journey-card-text">Cages, limited human contact, and strict schedules.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="journey-card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+                        <div class="journey-card-image" style="background-image: url('assets/images/risky-sitters.jpg')">
+                            <div class="journey-card-content">
+                                <div class="journey-card-top">
+                                    <span class="journey-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                            <path
+                                                d="M12 3l7 3v5c0 4.2-3 7.6-7 10-4-2.4-7-5.8-7-10V6l7-3z"
+                                                fill="none" stroke="currentColor" stroke-width="1.6" />
+                                            <path d="M9 11l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" />
+                                        </svg>
+                                    </span>
+                                    <h3 class="journey-card-title">Risky sitters</h3>
+                                </div>
+                                <p class="journey-card-text">Lack of verification or accountability on WhatsApp/Instagram.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="journey-card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">
+                        <div class="journey-card-image" style="background-image: url('assets/images/travel-guilt.jpg')">
+                            <div class="journey-card-content">
+                                <div class="journey-card-top">
+                                    <span class="journey-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                            <path
+                                                d="M12 20s-7-4.4-7-9.3A4.7 4.7 0 0 1 9.7 6c1.2 0 2.3.5 3 1.3A4.3 4.3 0 0 1 16.3 6 4.7 4.7 0 0 1 19 10.7C19 15.6 12 20 12 20z"
+                                                fill="none" stroke="currentColor" stroke-width="1.6" />
+                                        </svg>
+                                    </span>
+                                    <h3 class="journey-card-title">Travel guilt</h3>
+                                </div>
+                                <p class="journey-card-text">Parents cancel trips due to anxiety over pet safety.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <style>
+                .journey-card {
+                    position: relative;
+                    height: 100%;
+                    border-radius: 12px;
+                    overflow: hidden;
+                }
+
+                .journey-card-image {
+                    position: relative;
+                    width: 100%;
+                    height: 300px;
+                    background-size: cover;
+                    background-position: center;
+                }
+
+                .journey-card-content {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    padding: 20px;
+                    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+                    color: #fff;
+                    background: rgba(255, 255, 255, 0.25);
+                    backdrop-filter: blur(16px);
+                    -webkit-backdrop-filter: blur(16px);
+                    box-shadow: 0 20px 40px rgba(68, 43, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+                }
+
+                .journey-card-top {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+                }
+
+                .journey-icon {
+                    width: 24px;
+                    height: 24px;
+                    margin-right: 10px;
+                    color: #fff;
+                }
+
+                .journey-card-title {
+                    margin: 0;
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                }
+
+                .journey-card-text {
+                    margin: 0;
+                    font-size: 0.9rem;
+                    opacity: 0.9;
+                }
+            </style>
+        </div>
+    </section>
+
+    <section class="journey-section journey-steps" id="how-it-works">
+        <div class="container">
+            <div class="journey-head journey-head-lg" data-aos="fade-up" data-aos-duration="900">
+                <h2 class="journey-title">How It Works</h2>
+                <p class="journey-subtitle">Simple steps for every pet family.</p>
+            </div>
+
+            <div class="journey-track" data-aos="fade-up" data-aos-duration="900">
+                <span class="journey-track-badge is-parents">
+                    <span class="badge-heart" aria-hidden="true">&#10084;</span>
+                    For Pet Parents
+                    <span class="badge-heart" aria-hidden="true">&#10084;</span>
+                </span>
+            </div>
+
+            <div class="row journey-step-cards">
+                <div class="col-sm-6 col-lg-3">
+                    <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900">
+                        <span class="journey-step-number">1</span>
+                        <span class="journey-step-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.6" />
+                                <path d="M16 16l4 4" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <h3 class="journey-step-title">Discover nearby hosts</h3>
+                        <p class="journey-step-text">Search for nearby verified hosts in your neighborhood.</p>
+                    </article>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+                        <span class="journey-step-number">2</span>
+                        <span class="journey-step-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <rect x="4" y="5" width="7" height="14" rx="2" fill="none" stroke="currentColor"
+                                    stroke-width="1.6" />
+                                <rect x="13" y="7" width="7" height="12" rx="2" fill="none" stroke="currentColor"
+                                    stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <h3 class="journey-step-title">Compare &amp; choose</h3>
+                        <p class="journey-step-text">Review homes, prices, and ratings to find the perfect match.</p>
+                    </article>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">
+                        <span class="journey-step-number">3</span>
+                        <span class="journey-step-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <rect x="4" y="5" width="16" height="15" rx="2" fill="none" stroke="currentColor"
+                                    stroke-width="1.6" />
+                                <path d="M8 3v4M16 3v4M7 11h10" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <h3 class="journey-step-title">Book instantly</h3>
+                        <p class="journey-step-text">Reserve your spot with easy booking and secure payments.</p>
+                    </article>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300">
+                        <span class="journey-step-number">4</span>
+                        <span class="journey-step-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M6 6h9a4 4 0 0 1 0 8H9l-3 4v-4H6a4 4 0 0 1 0-8z" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <h3 class="journey-step-title">Stay connected</h3>
+                        <p class="journey-step-text">Receive live updates, photos, and messages.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="row journey-callout-row">
+                <div class="col-lg-6">
+                    <article class="journey-callout is-parents" data-aos="fade-right" data-aos-duration="900">
+                        <h3>No blind drop-offs. No anxiety. No guilt.</h3>
+                        <p>Your pet is not "dropped off" - they are checked in to a second home.</p>
+                        <div class="journey-tags">
+                            <span class="journey-tag is-parents">Real Homes</span>
+                            <span class="journey-tag is-parents-alt">Real Love</span>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="journey-photo-card" data-aos="fade-left" data-aos-duration="900">
+                        <img src="assets/images/dog-img-1.jpg" alt="Happy pets together">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="journey-photo-card" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+                        <img src="assets/images/dog-img-2.jpg" alt="Pet playtime">
+                    </div>
+                </div>
+            </div>
+
+            <div class="journey-track journey-track-spaced" data-aos="fade-up" data-aos-duration="900">
+                <span class="journey-track-badge is-hosts">
+                    <span class="badge-heart" aria-hidden="true">&#10084;</span>
+                    For Pet Hosts
+                    <span class="badge-heart" aria-hidden="true">&#10084;</span>
+                </span>
+            </div>
+
+            <div class="row journey-host-cards">
+                <div class="col-md-6 col-lg-4">
+                    <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900">
+                        <span class="journey-step-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M12 3l7 3v5c0 4.2-3 7.6-7 10-4-2.4-7-5.8-7-10V6l7-3z" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" />
+                                <path d="M9 11l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <h3 class="journey-step-title">Verified profiles</h3>
+                        <p class="journey-step-text">Build trust through reviews and ratings.</p>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900" data-aos-delay="120">
+                        <span class="journey-step-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <rect x="4" y="5" width="16" height="15" rx="2" fill="none" stroke="currentColor"
+                                    stroke-width="1.6" />
+                                <path d="M8 3v4M16 3v4M7 11h10" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <h3 class="journey-step-title">Flexible bookings</h3>
+                        <p class="journey-step-text">Choose when and how often you host.</p>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900" data-aos-delay="240">
+                        <span class="journey-step-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M12 3v18M7 7c0-2 1.8-3 5-3s5 1 5 3-1.6 3-5 3-5 1-5 3 1.8 3 5 3 5-1 5-3"
+                                    fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                            </svg>
+                        </span>
+                        <h3 class="journey-step-title">Weekly payouts</h3>
+                        <p class="journey-step-text">Weekly payouts for pet care.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="row journey-callout-row journey-callout-row-hosts">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="journey-photo-card" data-aos="fade-right" data-aos-duration="900">
+                        <img src="assets/images/dog-img-3.jpg" alt="Pet care at home">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="journey-photo-card" data-aos="fade-right" data-aos-duration="900" data-aos-delay="120">
+                        <img src="assets/images/dog-img-4.jpg" alt="Happy pets with hosts">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <article class="journey-callout is-hosts" data-aos="fade-left" data-aos-duration="900">
+                        <h3>Turn your love for animals into income</h3>
+                        <p>Get verified, set your schedule, and earn money while caring for adorable pets in your own home with full
+                            protection and support from PetBnB.</p>
+                        <div class="journey-tags">
+                            <span class="journey-tag is-hosts">Flexible Hours</span>
+                            <span class="journey-tag is-hosts-alt">Extra Income</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="journey-section services-alternative" id="how-it-works-alt">
+        <div class="container">
+            <div class="services-head" data-aos="fade-up" data-aos-duration="900">
+                <p class="services-kicker">How It Works</p>
+                <h2 class="services-title">Care built around your pet</h2>
+                <span class="services-rule" aria-hidden="true"></span>
+                <p class="services-subtitle">Four simple steps with love in the middle.</p>
+            </div>
+
+            <div class="row g-4 services-grid align-items-stretch">
+                <div class="col-lg-4 services-side is-left">
+                    <article class="service-item" data-aos="fade-up" data-aos-duration="900">
+                        <div class="service-copy">
+                            <h3 class="service-title">Tell us about your pet</h3>
+                            <p class="service-text">Share dates, pet type, and the care you need.</p>
+                        </div>
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <rect x="6" y="4" width="12" height="16" rx="2" fill="none" stroke="currentColor"
+                                    stroke-width="1.6" />
+                                <path d="M9 8h6M9 12h6M9 16h4" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </span>
+                    </article>
+                    <article class="service-item" data-aos="fade-up" data-aos-duration="900" data-aos-delay="120">
+                        <div class="service-copy">
+                            <h3 class="service-title">Meet nearby hosts</h3>
+                            <p class="service-text">Browse verified profiles close to your neighborhood.</p>
+                        </div>
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M12 3c-3.1 0-5.5 2.4-5.5 5.5 0 4.2 5.5 10.5 5.5 10.5s5.5-6.3 5.5-10.5C17.5 5.4 15.1 3 12 3z"
+                                    fill="none" stroke="currentColor" stroke-width="1.6" />
+                                <circle cx="12" cy="8.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                    </article>
+                </div>
+
+                <div class="col-lg-4 services-center" data-aos="fade-up" data-aos-duration="900" data-aos-delay="80">
+                    <div class="services-photo">
+                        <img src="assets/images/dogs-studio.png" alt="Happy dog ready for care">
+                    </div>
+                </div>
+
+                <div class="col-lg-4 services-side is-right">
+                    <article class="service-item" data-aos="fade-up" data-aos-duration="900">
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <rect x="4" y="5" width="16" height="15" rx="2" fill="none" stroke="currentColor"
+                                    stroke-width="1.6" />
+                                <path d="M8 3v4M16 3v4M7 11h10" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <div class="service-copy">
+                            <h3 class="service-title">Book with confidence</h3>
+                            <p class="service-text">Confirm the best host and lock in your dates.</p>
+                        </div>
+                    </article>
+                    <article class="service-item" data-aos="fade-up" data-aos-duration="900" data-aos-delay="120">
+                        <span class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M6 6h9a4 4 0 0 1 0 8H9l-3 4v-4H6a4 4 0 0 1 0-8z" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <div class="service-copy">
+                            <h3 class="service-title">Get live updates</h3>
+                            <p class="service-text">Stay connected with photos and messages.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="services-cta" data-aos="fade-up" data-aos-duration="900">
+                <a class="btn btn-primary-color rounded-pill fw-semibold px-4 py-2"
+                    href="https://forms.gle/5aNmE97MRYUBZzqJ6">Get started</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="journey-section journey-comparison" id="comparison">
+        <div class="container">
+            <div class="journey-head journey-head-lg" data-aos="fade-up" data-aos-duration="900">
+                <h2 class="journey-title">Why PetBnB Is Different</h2>
+                <p class="journey-subtitle">Not a kennel &bull; Not classifieds &bull; Not Instagram DMs</p>
+            </div>
+            <div class="comparison-table-wrap" data-aos="fade-up" data-aos-duration="900">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Feature</th>
+                            <th scope="col">Kennels</th>
+                            <th scope="col">Local Sitters</th>
+                            <th scope="col"><span class="cmp-head">PetBnB</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="cmp-feature">Environment</th>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-negative" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M6 6l8 8M14 6l-8 8" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">Cages</span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-negative" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M6 6l8 8M14 6l-8 8" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">No verification</span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-positive" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M4.5 10.5l3.2 3.2 7.8-7.8" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">Verified homes</span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="cmp-feature">Experience</th>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-negative" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M6 6l8 8M14 6l-8 8" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">Stressful</span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-negative" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M6 6l8 8M14 6l-8 8" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">No accountability</span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-positive" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M4.5 10.5l3.2 3.2 7.8-7.8" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">Reviews &amp; ratings</span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="cmp-feature">Communication</th>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-negative" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M6 6l8 8M14 6l-8 8" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">No updates</span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-negative" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M6 6l8 8M14 6l-8 8" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">No insurance</span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="cmp-cell">
+                                    <span class="cmp-status is-positive" aria-hidden="true">
+                                        <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                                            <path d="M4.5 10.5l3.2 3.2 7.8-7.8" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <span class="cmp-text">Live updates</span>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="journey-section journey-trust" id="trust">
+        <div class="container">
+            <div class="journey-head journey-head-lg" data-aos="fade-up" data-aos-duration="900">
+                <h2 class="journey-title">Why Pet Parents Trust PetBnB</h2>
+                <p class="journey-subtitle">A curated, verified, reputation-driven pet care ecosystem built for peace of mind.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="journey-feature" data-aos="fade-up" data-aos-duration="900">
+                        <span class="journey-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path
+                                    d="M12 3l7 3v5c0 4.2-3 7.6-7 10-4-2.4-7-5.8-7-10V6l7-3z"
+                                    fill="none" stroke="currentColor" stroke-width="1.6" />
+                                <path d="M9 11l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <div>
+                            <h3 class="journey-feature-title">Verification</h3>
+                            <p class="journey-feature-text">Background checks for all hosts.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="journey-feature" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+                        <span class="journey-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.6" />
+                                <path d="M7 10h10M7 14h6" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <div>
+                            <h3 class="journey-feature-title">Transparency</h3>
+                            <p class="journey-feature-text">Reputation-driven ecosystem with reviews and ratings.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="journey-feature" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">
+                        <span class="journey-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <rect x="4" y="6" width="16" height="12" rx="2" fill="none" stroke="currentColor"
+                                    stroke-width="1.6" />
+                                <circle cx="9" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.6" />
+                                <path d="M13 15l2-2 3 3" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <div>
+                            <h3 class="journey-feature-title">Live Updates</h3>
+                            <p class="journey-feature-text">Mandatory photo and message updates during stays.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-6 col-lg-4">
+                    <div class="journey-feature" data-aos="fade-up" data-aos-duration="900">
+                        <span class="journey-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <circle cx="7" cy="7" r="3" fill="none" stroke="currentColor" stroke-width="1.6" />
+                                <circle cx="17" cy="17" r="3" fill="none" stroke="currentColor" stroke-width="1.6" />
+                                <path d="M9.5 9.5l5 5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <div>
+                            <h3 class="journey-feature-title">Matching</h3>
+                            <p class="journey-feature-text">Tailored based on pet size, type, and temperament.</p>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="col-sm-6 col-lg-4">
+                    <div class="journey-feature" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+                        <span class="journey-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"
+                                    fill="none" stroke="currentColor" stroke-width="1.6" />
+                                <path d="M9 12h6" fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <div>
+                            <h3 class="journey-feature-title">Protection</h3>
+                            <p class="journey-feature-text">Secure payments and 24/7 customer support.</p>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-lg-8 mx-lg-auto">
+                    <div class="journey-proof" data-aos="zoom-in" data-aos-duration="900">
+                        <span class="journey-proof-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4-3.9-3.8 5.4-.8L12 3z"
+                                    fill="none" stroke="currentColor" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        <div>
+                            <p class="journey-proof-text">Trusted by 10,000+ Pets.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-services-for-you-section" id="about">
+        <div class="container">
+            <div class="services-for-you-section-title mt-5" data-aos="fade-up" data-aos-duration="900">
+                <h2 class="head-text">Services</h2>
+            </div>
+
+            <div class="services-for-you-section mt-3 services-grid">
+                <article class="service-card service-card--featured" data-aos="fade-up" data-aos-duration="900">
+                    <div class="service-card-content">
+                        <h3 class="head-text">Boarding</h3>
+                        <p>With MyPetBnB, dog boarding is no longer about cages or kennels, it's about comfort and care. When you
+                            book through our platform, you're directly connected to trusted dog sitters in your neighborhood who
+                            welcome pups into their own homes.</p>
+                        <p>Your dog enjoys a safe environment with their own comfortable spot, daily walks, playtime and the warmth
+                            of a family setting. Whether you're away for a few days or an extended holiday, you can travel worry-free
+                            knowing your furry friend is in loving hands.</p>
+                        <div class="nav-cta-wrap ms-lg-0">
+                            <a class="track-boarding btn btn-primary-color rounded-pill fw-semibold px-4 py-3 service-cta" href="#"
+                                data-go-role="host">Register</a>
+                        </div>
+                    </div>
+                    <div class="service-card-media">
+                        <img src="assets/images/dog-services-imgs/boarding-img1.jpg" alt="Dog Boarding">
+                    </div>
+                </article>
+
+                <article class="service-card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+                    <div class="service-card-content">
+                        <h3 class="head-text">Walking</h3>
+                        <p>Daily walks are essential for a dog's health and happiness but city life doesn't always leave time for
+                            them. That's why we connect you with compassionate, experienced dog walkers nearby who make every stroll
+                            safe, fun and engaging.</p>
+                        <p>From quick neighborhood rounds to long park strolls, your pup will enjoy exercise, stimulation and
+                            socialization. With GPS tracking and live updates, you'll always know your dog is getting the care and
+                            activity they deserve.</p>
+                        <div class="nav-cta-wrap ms-lg-0">
+                            <a class="track-walking btn btn-primary-color rounded-pill fw-semibold px-4 py-3 service-cta" href="#"
+                                data-go-role="provider">Register</a>
+                        </div>
+                    </div>
+                    <div class="service-card-media">
+                        <img src="assets/images/dog-services-imgs/dog-walking.jpg" alt="Dog Walking">
+                    </div>
+                </article>
+
+                <article class="service-card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">
+                    <div class="service-card-content">
+                        <h3 class="head-text">Sitting</h3>
+                        <p>Some dogs feel most comfortable in their own space. Our dog sitting service ensures they're cared for
+                            right at home. Whether you're working late, out for dinner or away for the weekend, a trusted sitter comes
+                            to your home to feed, walk, play and comfort your pup.</p>
+                        <p>Regular photo and video updates keep you connected, while sitters follow your instructions to the last
+                            detail; ensuring safety, consistency and peace of mind.</p>
+                        <div class="nav-cta-wrap ms-lg-0">
+                            <a class="track-sitting btn btn-primary-color rounded-pill fw-semibold px-4 py-3 service-cta" href="#"
+                                data-go-role="provider">Register</a>
+                        </div>
+                    </div>
+                    <div class="service-card-media">
+                        <img src="assets/images/dog-services-imgs/dog-sitting.jpg" alt="Dog Sitting">
+                    </div>
+                </article>
+
+                <article class="service-card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300">
+                    <div class="service-card-content">
+                        <h3 class="head-text">Training</h3>
+                        <p>Good behavior makes life easier for both dogs and parents. Through MyPetBnB, you can connect with
+                            experienced trainers who use positive reinforcement to teach obedience, leash manners and social skills.
+                        </p>
+                        <p>Whether it's basic puppy training, correcting habits or addressing specific challenges, our trainers help
+                            your dog learn in a safe and supportive way. With regular progress updates, you'll see your pup grow into
+                            their best self.</p>
+                        <div class="nav-cta-wrap ms-lg-0">
+                            <a class="btn btn-primary-color rounded-pill fw-semibold px-4 py-3 service-cta" href="#"
+                                data-go-role="provider">Register</a>
+                        </div>
+                    </div>
+                    <div class="service-card-media">
+                        <img src="assets/images/dog-services-imgs/dog-training.jpg" alt="Dog Training">
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <footer class="site-footer">
+    <section class="footer-cta">
+        <div class="container footer-cta__inner">
+            <div class="footer-cta__whisper">
+                <span>Ready to find trusted care?</span>
+            </div>
+            <h2 class="footer-cta__title">Connect with PetBnB</h2>
+            <a class="footer-cta__button" href="mailto:hello@petbnb.com" aria-label="Start a conversation">
+                <span>Talk to us</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="footer-main">
+        <div class="container footer-grid">
+            <div class="footer-column footer-brand">
+                <p class="footer-tagline">PetBnB</p>
+                <p class="footer-text">
+                    Thoughtful care for dogs, built around trust, comfort, and real homes.
+                </p>
+            </div>
+
+            <div class="footer-column">
+                <p class="footer-heading">India</p>
+                <a class="footer-link" href="mailto:hello@petbnb.com">hello@petbnb.com</a>
+                <p class="footer-text">
+                    Connecting pet parents with verified hosts across cities.
+                </p>
+                <a class="footer-link footer-link--map" href="https://petbnb.com" target="_blank" rel="noopener">
+                    Visit petbnb.com &rarr;
+                </a>
+            </div>
+
+            <div class="footer-column">
+                <p class="footer-heading">Pet services</p>
+                <a class="footer-link" href="mailto:care@petbnb.com">care@petbnb.com</a>
+                <p class="footer-text">
+                    Boarding, sitting, walks, and everyday care you can rely on.
+                </p>
+                <a class="footer-link footer-link--map" href="https://petbnb.com/services" target="_blank" rel="noopener">
+                    Explore services &rarr;
+                </a>
+            </div>
+
+            <div class="footer-column footer-column--cta">
+                <p class="footer-heading">Stay in the loop</p>
+                <a class="footer-link footer-link--strong" href="mailto:updates@petbnb.com">
+                    Join the PetBnB list &rarr;
+                </a>
+
+                <div class="footer-social">
+                    <span class="footer-social__label">Follow us</span>
+                    <div class="footer-social__icons">
+                        <a class="footer-social__icon" href="https://petbnb.com" aria-label="Instagram">Ig</a>
+                        <a class="footer-social__icon" href="https://petbnb.com" aria-label="LinkedIn">in</a>
+                        <a class="footer-social__icon" href="https://petbnb.com" aria-label="Facebook">Fb</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<script>
+    (function() {
+        const nav = document.querySelector('.site-nav');
+        if (!nav) return;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    })();
+</script>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            duration: 700,
+            offset: 120
+        });
+
+        (function() {
+            const setActivePane = (form, role) => {
+                const panes = form.querySelectorAll('.role-pane');
+                panes.forEach((pane) => {
+                    pane.classList.toggle('active', pane.dataset.pane === role);
+                });
+
+                const hidden = form.querySelector('[data-role="selectedRole"]');
+                if (hidden) {
+                    hidden.value = role;
+                }
+            };
+
+            const initSegmentTabs = (form) => {
+                const tabs = form.querySelectorAll('[data-tabs] [data-role-btn]');
+                if (!tabs.length) return;
+
+                const activate = (button) => {
+                    tabs.forEach((tab) => tab.classList.toggle('active', tab === button));
+                    setActivePane(form, button.value);
+                };
+
+                tabs.forEach((button) => {
+                    button.addEventListener('click', () => activate(button));
+                });
+
+                const initial = Array.from(tabs).find((tab) => tab.classList.contains('active')) || tabs[0];
+                if (initial) {
+                    activate(initial);
+                }
+            };
+
+            const initRoleRadios = (form) => {
+                const radios = form.querySelectorAll('input[name="roleMob"]');
+                if (!radios.length) return;
+
+                radios.forEach((radio) => {
+                    radio.addEventListener('change', () => {
+                        if (radio.checked) {
+                            setActivePane(form, radio.value);
+                        }
+                    });
+                });
+
+                const checked = Array.from(radios).find((radio) => radio.checked) || radios[0];
+                if (checked) {
+                    setActivePane(form, checked.value);
+                }
+            };
+
+            const forms = document.querySelectorAll('.hero-form-card');
+            forms.forEach((form) => {
+                initSegmentTabs(form);
+                initRoleRadios(form);
+            });
+        })();
+    </script>
+</body>
+
+</html>
