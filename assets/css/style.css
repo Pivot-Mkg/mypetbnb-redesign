@@ -2479,7 +2479,11 @@ iframe.goog-te-banner-frame {
 
 @media (max-width:768px) {
     .services-for-you-section .service-card{
-    flex-direction: column!important;
+    flex-direction: column-reverse;
+}
+
+.home-page .service-card:nth-child(odd) {
+    flex-direction: column-reverse;
 }
 }
 
