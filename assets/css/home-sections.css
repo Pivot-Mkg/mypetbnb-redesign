@@ -8,6 +8,12 @@
     --paw-glow: rgba(234, 98, 78, 0.16);
 }
 
+@media (max-width:991px) {
+    .home-page .journey-section {
+    padding: 50px 0;
+}
+}
+
 .home-page .journey-steps {
     background: linear-gradient(180deg, #fff7ef 0%, #fffaf5 55%, #fffbf2 100%);
     padding-bottom: 0px;
@@ -105,7 +111,7 @@
 }
 
 .home-page .journey-title {
-    font-size: clamp(2rem, 2.6vw, 2.6rem);
+    font-size: clamp(24px, 2.6vw, 2.6rem);
     color: var(--text-primary);
     margin: 0;
 }
@@ -694,7 +700,7 @@
 }
 
 .home-page .journey-card-title {
-    font-size: 1.2rem;
+    font-size: 16px;
     font-weight: 700;
     margin: 0;
 }
@@ -1059,7 +1065,7 @@
 
 @media (max-width: 991.98px) {
     .home-page .journey-section {
-        padding: 90px 0;
+        /* padding: 90px 0; */
     }
 
     .home-page .journey-head {
@@ -1116,7 +1122,7 @@
     }
 
     .home-page .journey-card {
-        padding: 26px;
+        /* padding: 26px; */
     }
 
     .home-page .journey-step-list li {
@@ -1150,3 +1156,69 @@
         min-height: 200px;
     }
 }
+
+/* Swiper styling for Journey section */
+.home-page .journey-host-swiper {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.home-page .journey-host-swiper .swiper-slide {
+  height: auto;
+}
+
+.home-page .journey-host-swiper .journey-step-card {
+  height: 100%;
+}
+
+/* Pagination dots */
+.home-page .journey-swiper-pagination {
+  position: static;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.home-page .journey-swiper-pagination .swiper-pagination-bullet {
+  opacity: 0.25;
+}
+
+.home-page .journey-swiper-pagination .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Mobile slider feel */
+@media (max-width: 991.98px) {
+  .home-page .journey-host-swiper {
+    padding: 0 6px;
+  }
+}
+
+/* Parents Swiper */
+.home-page .journey-parents-swiper {
+  width: 100%;
+  padding: 15px;
+}
+
+.home-page .journey-parents-swiper .swiper-slide {
+  height: auto;
+}
+
+.home-page .journey-parents-swiper .journey-step-card {
+  height: 100%;
+}
+
+.home-page .journey-parents-pagination {
+  position: static;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.home-page .journey-parents-pagination .swiper-pagination-bullet {
+  opacity: 0.25;
+}
+
+.home-page .journey-parents-pagination .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+

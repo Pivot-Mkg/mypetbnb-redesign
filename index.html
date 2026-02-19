@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/home-sections.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 </head>
 
 <body class="home-page">
@@ -1248,63 +1250,72 @@
                 </span>
             </div>
 
-            <div class="row journey-step-cards">
-                <div class="col-sm-6 col-lg-3">
-                    <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900">
-                        <span class="journey-step-number">1</span>
-                        <span class="journey-step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                <circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.6" />
-                                <path d="M16 16l4 4" fill="none" stroke="currentColor" stroke-width="1.6" />
-                            </svg>
-                        </span>
-                        <h3 class="journey-step-title">Discover nearby hosts</h3>
-                        <p class="journey-step-text">Search for nearby verified hosts in your neighborhood.</p>
-                    </article>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
-                        <span class="journey-step-number">2</span>
-                        <span class="journey-step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                <rect x="4" y="5" width="7" height="14" rx="2" fill="none" stroke="currentColor"
-                                    stroke-width="1.6" />
-                                <rect x="13" y="7" width="7" height="12" rx="2" fill="none" stroke="currentColor"
-                                    stroke-width="1.6" />
-                            </svg>
-                        </span>
-                        <h3 class="journey-step-title">Compare &amp; choose</h3>
-                        <p class="journey-step-text">Review homes, prices, and ratings to find the perfect match.</p>
-                    </article>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">
-                        <span class="journey-step-number">3</span>
-                        <span class="journey-step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                <rect x="4" y="5" width="16" height="15" rx="2" fill="none" stroke="currentColor"
-                                    stroke-width="1.6" />
-                                <path d="M8 3v4M16 3v4M7 11h10" fill="none" stroke="currentColor" stroke-width="1.6" />
-                            </svg>
-                        </span>
-                        <h3 class="journey-step-title">Book instantly</h3>
-                        <p class="journey-step-text">Reserve your spot with easy booking and secure payments.</p>
-                    </article>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300">
-                        <span class="journey-step-number">4</span>
-                        <span class="journey-step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                <path d="M6 6h9a4 4 0 0 1 0 8H9l-3 4v-4H6a4 4 0 0 1 0-8z" fill="none"
-                                    stroke="currentColor" stroke-width="1.6" />
-                            </svg>
-                        </span>
-                        <h3 class="journey-step-title">Stay connected</h3>
-                        <p class="journey-step-text">Receive live updates, photos, and messages.</p>
-                    </article>
-                </div>
-            </div>
+            <!-- Parents slider (mobile), grid (desktop via Swiper destroy) -->
+<div class="swiper journey-parents-swiper">
+  <div class="swiper-wrapper">
+
+    <div class="swiper-slide">
+      <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900">
+        <span class="journey-step-number">1</span>
+        <span class="journey-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.6" />
+            <path d="M16 16l4 4" fill="none" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </span>
+        <h3 class="journey-step-title">Discover nearby hosts</h3>
+        <p class="journey-step-text">Search for nearby verified hosts in your neighborhood.</p>
+      </article>
+    </div>
+
+    <div class="swiper-slide">
+      <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
+        <span class="journey-step-number">2</span>
+        <span class="journey-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <rect x="4" y="5" width="7" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6" />
+            <rect x="13" y="7" width="7" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </span>
+        <h3 class="journey-step-title">Compare &amp; choose</h3>
+        <p class="journey-step-text">Review homes, prices, and ratings to find the perfect match.</p>
+      </article>
+    </div>
+
+    <div class="swiper-slide">
+      <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">
+        <span class="journey-step-number">3</span>
+        <span class="journey-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <rect x="4" y="5" width="16" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6" />
+            <path d="M8 3v4M16 3v4M7 11h10" fill="none" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </span>
+        <h3 class="journey-step-title">Book instantly</h3>
+        <p class="journey-step-text">Reserve your spot with easy booking and secure payments.</p>
+      </article>
+    </div>
+
+    <div class="swiper-slide">
+      <article class="journey-step-card is-parents" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300">
+        <span class="journey-step-number">4</span>
+        <span class="journey-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <path d="M6 6h9a4 4 0 0 1 0 8H9l-3 4v-4H6a4 4 0 0 1 0-8z" fill="none"
+              stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </span>
+        <h3 class="journey-step-title">Stay connected</h3>
+        <p class="journey-step-text">Receive live updates, photos, and messages.</p>
+      </article>
+    </div>
+
+  </div>
+
+  <!-- dots -->
+  <div class="swiper-pagination journey-parents-pagination"></div>
+</div>
+
 
             <div class="row journey-callout-row">
                 <div class="col-lg-6">
@@ -1337,46 +1348,56 @@
                 </span>
             </div>
 
-            <div class="row journey-host-cards">
-                <div class="col-md-6 col-lg-4">
-                    <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900">
-                        <span class="journey-step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                <path d="M12 3l7 3v5c0 4.2-3 7.6-7 10-4-2.4-7-5.8-7-10V6l7-3z" fill="none"
-                                    stroke="currentColor" stroke-width="1.6" />
-                                <path d="M9 11l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" />
-                            </svg>
-                        </span>
-                        <h3 class="journey-step-title">Verified profiles</h3>
-                        <p class="journey-step-text">Build trust through reviews and ratings.</p>
-                    </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900" data-aos-delay="120">
-                        <span class="journey-step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                <rect x="4" y="5" width="16" height="15" rx="2" fill="none" stroke="currentColor"
-                                    stroke-width="1.6" />
-                                <path d="M8 3v4M16 3v4M7 11h10" fill="none" stroke="currentColor" stroke-width="1.6" />
-                            </svg>
-                        </span>
-                        <h3 class="journey-step-title">Flexible bookings</h3>
-                        <p class="journey-step-text">Choose when and how often you host.</p>
-                    </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900" data-aos-delay="240">
-                        <span class="journey-step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                <path d="M12 3v18M7 7c0-2 1.8-3 5-3s5 1 5 3-1.6 3-5 3-5 1-5 3 1.8 3 5 3 5-1 5-3"
-                                    fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-                            </svg>
-                        </span>
-                        <h3 class="journey-step-title">Weekly payouts</h3>
-                        <p class="journey-step-text">Weekly payouts for pet care.</p>
-                    </article>
-                </div>
-            </div>
+            <!-- Hosts slider (keeps your same cards) -->
+<div class="swiper journey-host-swiper">
+  <div class="swiper-wrapper">
+
+    <div class="swiper-slide">
+      <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900">
+        <span class="journey-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <path d="M12 3l7 3v5c0 4.2-3 7.6-7 10-4-2.4-7-5.8-7-10V6l7-3z" fill="none"
+              stroke="currentColor" stroke-width="1.6" />
+            <path d="M9 11l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </span>
+        <h3 class="journey-step-title">Verified profiles</h3>
+        <p class="journey-step-text">Build trust through reviews and ratings.</p>
+      </article>
+    </div>
+
+    <div class="swiper-slide">
+      <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900" data-aos-delay="120">
+        <span class="journey-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <rect x="4" y="5" width="16" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6" />
+            <path d="M8 3v4M16 3v4M7 11h10" fill="none" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </span>
+        <h3 class="journey-step-title">Flexible bookings</h3>
+        <p class="journey-step-text">Choose when and how often you host.</p>
+      </article>
+    </div>
+
+    <div class="swiper-slide">
+      <article class="journey-step-card is-hosts" data-aos="fade-up" data-aos-duration="900" data-aos-delay="240">
+        <span class="journey-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <path d="M12 3v18M7 7c0-2 1.8-3 5-3s5 1 5 3-1.6 3-5 3-5 1-5 3 1.8 3 5 3 5-1 5-3"
+              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <h3 class="journey-step-title">Weekly payouts</h3>
+        <p class="journey-step-text">Weekly payouts for pet care.</p>
+      </article>
+    </div>
+
+  </div>
+
+  <!-- dots -->
+  <div class="swiper-pagination journey-swiper-pagination"></div>
+</div>
+
 
             <div class="row journey-callout-row journey-callout-row-hosts">
                 <div class="col-sm-6 col-lg-4">
@@ -1880,6 +1901,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         AOS.init({
             once: true,
@@ -1944,6 +1966,76 @@
             });
         })();
     </script>
+
+<script>
+    (function () {
+  function initJourneyHostSwiper() {
+    const el = document.querySelector('.journey-host-swiper');
+    if (!el || el.swiper) return;
+
+    window.hostsSwiper = new Swiper('.journey-host-swiper', {
+      slidesPerView: 1.15,
+      spaceBetween: 16,
+      grabCursor: true,
+      watchOverflow: true,
+      pagination: {
+        el: '.journey-swiper-pagination',
+        clickable: true
+      },
+      breakpoints: {
+        576: { slidesPerView: 1.4, spaceBetween: 16 },
+        768: { slidesPerView: 2.05, spaceBetween: 18 },
+
+        // ✅ Desktop: looks like a neat 3-card row (no swipe feel)
+        992: { slidesPerView: 3, spaceBetween: 24, allowTouchMove: false }
+      },
+      on: {
+        // ✅ Hide dots on desktop using JS only
+        resize(sw) {
+          const dots = document.querySelector('.journey-swiper-pagination');
+          if (!dots) return;
+          dots.style.display = window.innerWidth >= 992 ? 'none' : '';
+        },
+        init(sw) {
+          const dots = document.querySelector('.journey-swiper-pagination');
+          if (!dots) return;
+          dots.style.display = window.innerWidth >= 992 ? 'none' : '';
+        }
+      }
+    });
+  }
+
+  window.addEventListener('load', initJourneyHostSwiper);
+})();
+
+</script>
+
+<script>
+  function initJourneyParentsSwiper() {
+    const el = document.querySelector('.journey-parents-swiper');
+    if (!el || el.swiper) return;
+
+    new Swiper('.journey-parents-swiper', {
+      slidesPerView: 1.15,
+      spaceBetween: 16,
+      grabCursor: true,
+      pagination: {
+        el: '.journey-parents-pagination',
+        clickable: true
+      },
+      breakpoints: {
+        576: { slidesPerView: 1.45, spaceBetween: 16 },
+        768: { slidesPerView: 2.1,  spaceBetween: 18 },
+        992: { slidesPerView: 4,    spaceBetween: 24, allowTouchMove: false }
+      }
+    });
+  }
+
+  window.addEventListener('load', initJourneyParentsSwiper);
+</script>
+
+
+
 </body>
 
 </html>
